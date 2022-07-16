@@ -1,7 +1,0 @@
-public static object Main{
-	fn Main(this){
-		print("Hello World")
-	}
-}
-
-

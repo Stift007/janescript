@@ -1,6 +1,0 @@
-#reference native <os>
-
-fn print_hi(name):
-	os.system("cmd")
-	print(f"Hello {name}")
-
