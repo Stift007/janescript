@@ -1,0 +1,3 @@
+class Main:
+	fn Main(this):
+		print("Hello World")

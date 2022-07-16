@@ -1,0 +1,5 @@
+#reference native <io>
+
+public static object Main:
+	fn Main(this):
+		io.printf("Hello, World\n")	
