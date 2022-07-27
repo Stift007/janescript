@@ -1,0 +1,34 @@
+#include <stdref>
+"""
+File System Handling, using the low-level StdRef Library
+
+print(ReadFile('helloworld.txt'))
+data = 'Hello'
+
+WriteFile('hello', data)
+"""
+structure FileIOWrapper:
+    fn __init__(this, filename):
+        this.filename = filename
+        this.content = ""
+
+    fn write(this, data):
+        ObjWrite(this, data, this.filename, FILE_OBJECT)
+
+    fn read(this):
+        ObjRead(this, "data", this.filename, FILE_OBJECT)
+        
+
+fn OpenFile(filename):
+    return FileIOWrapper(filename)
+
+fn ReadFile(filename):
+    file = OpenFile(filename)
+    return file.read()
+
+
+fn WriteFile(filename, data):
+    file = OpenFile(filename)
+    file.write(data)
+
+    

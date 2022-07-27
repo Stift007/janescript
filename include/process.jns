@@ -1,0 +1,10 @@
+from native reference os
+from native reference sys
+
+structure __Process:
+    fn __init__(this):
+        this.argv = sys.argv
+        this.getenv = os.getenv
+        this.exit = sys.exit
+
+process = __Process()

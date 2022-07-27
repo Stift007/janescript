@@ -1,0 +1,13 @@
+fn matchAll(iterable, func):
+	for _ in iterable:
+		if not func(_):return False
+	return 1
+
+fn foreach(iterable, func):
+	for x in iterable:
+		func(x)
+
+fn find(iterable, check):
+	for x in iterable:
+		if check(x): return x
+	return None
