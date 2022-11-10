@@ -1,0 +1,114 @@
+{
+  "kind": "youtube#searchListResponse",
+  "etag": "a9jTY16FubD4syuiTaChW8MjqrM",
+  "nextPageToken": "CAMQAA",
+  "regionCode": "DE",
+  "pageInfo": {
+    "totalResults": 43,
+    "resultsPerPage": 3
+  },
+  "items": [
+    {
+      "kind": "youtube#searchResult",
+      "etag": "R3kxM1iOJDzxlnQvvM8Lrvgq3Ec",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "2eAwrSB2UqM"
+      },
+      "snippet": {
+        "publishedAt": "2022-09-14T11:54:07Z",
+        "channelId": "UCeAgRH-t9a70zF3LvMjl1qQ",
+        "title": "light switch - miku cover",
+        "description": "yee the song is prety generic, but its aight, plus pretty challenging in a non-tuning sense, so good practice ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/2eAwrSB2UqM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/2eAwrSB2UqM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/2eAwrSB2UqM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "step stone",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-09-14T11:54:07Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "NYmp7RU9uuSMMqxi711_1g7c3iE",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "d4ZBPMlpsw0"
+      },
+      "snippet": {
+        "publishedAt": "2022-09-13T15:28:59Z",
+        "channelId": "UCeAgRH-t9a70zF3LvMjl1qQ",
+        "title": "the miku operas",
+        "description": "lamour, so mysterious ▭▭▭▭▭▭▭▭▭▭▭▭▭▭▭▭▭▭▭▭▭ VSQX ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/d4ZBPMlpsw0/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/d4ZBPMlpsw0/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/d4ZBPMlpsw0/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "step stone",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-09-13T15:28:59Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "4eum9u5rVAW7LRiFneq9d90qJRk",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "iFm9jp1foAc"
+      },
+      "snippet": {
+        "publishedAt": "2022-09-02T13:12:35Z",
+        "channelId": "UCeAgRH-t9a70zF3LvMjl1qQ",
+        "title": "payphone miku cover bad mic.mov",
+        "description": "instrumental https://youtu.be/ptmKHhxr6Y0.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/iFm9jp1foAc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/iFm9jp1foAc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/iFm9jp1foAc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "step stone",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-09-02T13:12:35Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Create "include/" Directory
+mkdir -p include
+
+# Check if all required Files exist
+files=("main.py" "parse.py" "include/_octane.jns" "include/_os.jns" "include/_STDLIB_EXT.jns" "include/array.jns" "include/fs.jns" "include/iostream.jns" "include/jinja2jns.jns" "include/octane.jns" "include/os.jns" "include/process.jns" "include/stdlib.jns" "include/stdref.jns" "include/string.jns" "include/structs.jns" "include/timedatelib.jns")
+
+for i in ${files[@]}; do
+    echo -n "Checking $i..."
+    if [[-f "$i"]]; then
+        echo "yes"
+    else
+        echo "nope, downloading..."
+        wget https://raw.githubusercontent.com/JaneScriptLang/PyJNS/main/$i -o $i
+    fi
+done

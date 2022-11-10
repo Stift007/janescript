@@ -1,0 +1,34 @@
+#include <octane>
+#include <jinja2jns>
+from native reference requests
+from native reference json 
+from native reference requests_oauthlib
+
+fn getYoutubeVideos():
+    r = requests.get("https://www.googleapis.com/youtube/v3/search?key=AIzaSyBG3xQFADdzJ7t4yIqhy3lloHzwajeXG6o&channelId=UCKySeviC7nVGyWM8T3sMkXA&part=snippet,id&order=date&maxResults=3")
+    #r = requests.get("https://www.googleapis.com/youtube/v3/search?key=AIzaSyBG3xQFADdzJ7t4yIqhy3lloHzwajeXG6o&channelId=UCeAgRH-t9a70zF3LvMjl1qQ&part=snippet,id&order=date&maxResults=3")
+    with open("res","wb") as f:
+        f.write(r.content)
+
+fn getTweets():
+    consumer_key = "JMEgEp3sg6puLwqeNH7ZuhlrY"
+    BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAPHFhAEAAAAAd1wdiZfTjg1RPR0Xhu2d1%2FboHBY%3DjqLt5CG7xOkoagOGeQ28EdOBa9kfZRnhSnfIkBn9pCw3Rn8u1t"
+    consumer_secret = "co64U6MIZxrpXn3yKGjnN4saTksMXV362aR7cth2uNc88ChrQD"
+    ID = "1471973012119465988"
+    params = {"ids": ID, "tweet.fields": "created_at"}
+
+
+app = HTTPServer()
+
+
+@app.endpoint("/")
+fn root(req):
+    with open("youtube.json") as f:
+        items = json.load(f)
+    return render_template("index.html", req,youtube=items["items"])
+
+@app.endpoint("/youtube.json")
+fn yt(req):
+    return HTTPResponse(req, open("youtube.json").read(), content_type="application/json")
+getTweets()
+start(app)
