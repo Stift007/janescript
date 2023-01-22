@@ -8,7 +8,7 @@ files=("main.py" "parse.py" "include/_octane.jns" "include/_os.jns" "include/_ST
 
 for i in ${files[@]}; do
     echo -n "Checking $i..."
-    if [[-f "$i"]]; then
+    if test -f "$i"; then
         echo "yes"
     else
         echo "nope, downloading..."

@@ -5,3 +5,8 @@
 /.idea
 /ideologgy
 /*.ico
+/*.toml
+/testenv
+/jns*
+/JMAKEFILE
+/*.cpp 

@@ -1,7 +1,37 @@
---2022-11-10 21:36:46--  https://raw.githubusercontent.com/JaneScriptLang/PyJNS/main/include/octane.jns
-CA-Zertifikat »/etc/ssl/certs/ca-certificates.crt« wurde geladen
-Auflösen des Hostnamens raw.githubusercontent.com (raw.githubusercontent.com)… 185.199.108.133, 185.199.109.133, 185.199.110.133, ...
-Verbindungsaufbau zu raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443 … verbunden.
-HTTP-Anforderung gesendet, auf Antwort wird gewartet … 404 Not Found
-2022-11-10 21:36:46 FEHLER 404: Not Found.
+#include <_octane>
+#include <stdref>
+from native import io
 
+structure WSGIApp{
+    def __init__(self,*,logger_fp=StringIO()){
+        self.router = Router()
+        self.logger = RuntimeLogger(logger_fp)
+    }
+
+    def set_routes(self, routes: list){
+        for rule in routes{ # transpiled
+            self.router.endpoint(rule)
+            }
+        }
+
+    def endpoint(self, rule, func):
+        def predicate(r,f):
+            self.router.endpoint(Route(r,f))
+
+        return predicate
+
+    def __call__(self, environ, start_response):
+        request = Request(environ, start_response)
+        self.logger.info(f"Environ: {environ}")
+        try:
+            print_request(request, stdout)
+            func = self.router.get_route(request.route)
+            if func:
+                response: Response = func(request)
+                return response.make_response()
+            else:
+                return HTTP404(request).make_response()
+        except Exception as e:
+            print(e)
+            HTTPFailedResponse(request).make_response()
+}

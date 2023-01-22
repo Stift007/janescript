@@ -1,0 +1,6 @@
+#pragma NI_BUILTINS,0
+#pragma PSTD_LIBRARY, __builtins__
+#include <iostream>
+
+fn exit(code: object = ...):
+    raise SystemExit(code)

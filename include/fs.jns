@@ -1,34 +1,44 @@
 #include <stdref>
-"""
-File System Handling, using the low-level StdRef Library
+#include <os>
+from native reference os as _pathlib;
+structure FileIOWrapper{
+    fn __init__(this, filename){
+        this.filename = filename;
+        this.content = "";}
 
-print(ReadFile('helloworld.txt'))
-data = 'Hello'
+    fn write(this, data){
+        ObjWrite(this, data, this.filename);
+    }
+    fn read(this){
+        ObjRead(this, "data", this.filename);
+        return this.data;
+    }
+    fn readLines(this){
+        this.read();
+        return this.data.splitlines();
+    }
+}
 
-WriteFile('hello', data)
-"""
-structure FileIOWrapper:
-    fn __init__(this, filename):
-        this.filename = filename
-        this.content = ""
+fn OpenFile(filename){
+    return FileIOWrapper(filename);
+}
+fn ReadFile(filename){
+    file = OpenFile(filename);
+    return file.read();
+}
 
-    fn write(this, data):
-        ObjWrite(this, data, this.filename, FILE_OBJECT)
+fn WriteFile(filename, data){
+    file = OpenFile(filename);
+    file.write(data);
+}
+fn MkDir(dirname){
+    mkdir(dirname);
+    return ObjDir(dirname);
+}
 
-    fn read(this):
-        ObjRead(this, "data", this.filename, FILE_OBJECT)
-        
-
-fn OpenFile(filename):
-    return FileIOWrapper(filename)
-
-fn ReadFile(filename):
-    file = OpenFile(filename)
-    return file.read()
-
-
-fn WriteFile(filename, data):
-    file = OpenFile(filename)
-    file.write(data)
-
-    
+structure ObjDir{
+    def __init__(self, basepath){
+        self.files = [FileIOWrapper(basepath+"/"+i) for i in _pathlib.listdir(basepath)];
+        self.name = basepath;
+        }
+}

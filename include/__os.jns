@@ -1,0 +1,92 @@
+from native reference datetime;
+from native reference os;
+
+structure _PosixPath{
+    fn __init__(this){
+        ...;
+    }
+
+    fn mkdir(this, THISDIRNAME){
+        return os.mkdir(THISDIRNAME);
+    }
+
+    fn cmd_popen(this, cmds){
+        return os.system(cmds);
+    }
+    fn normpath(this, __a){
+        x = re.findall(r"[a-zA-Z0-9] \w");
+        if (x){
+            for i=0 until len(x)-1 step 1{
+                _ = x[i];
+                __a = __a.replace(_, f'{_[0]}\ ');
+            }   
+        }
+        return __a.replace("\\","/");
+    }
+
+    fn join(this, basepath, *paths){
+        return "/".join([basepath,*paths]);
+    }
+
+    fn split(this, path){
+        return this.normpath(path).split("/");
+    }
+}
+structure Time(object){
+    fn __init__(this, y=0,m=0,d=0,h=0,M=0,s=0){
+        this.years = y;
+        this.months = m;
+        this.days = d;
+        this.hour = h;
+        this.minute = M;
+        this.second = s;
+    }
+
+    fn dtnow(this){
+        return datetime.datetime.now();
+    }
+    fn now(this){
+        hwnow = this.time();
+        return Time(hwnow.year,hwnow.month,hwnow.days,hwnow.hour,hwnow.minute,hwnow.seconds);
+    }
+    fn time(this){
+        return this.dtnow().timestamp();
+    }
+}
+
+structure _NtPath{
+    fn __init__(this){
+        ...;
+        }
+
+    fn mkdir(this, THISDIRNAME){
+        return os.mkdir(THISDIRNAME);
+    }
+    fn cmd_popen(this, cmds){
+        return os.system(cmds);
+    }
+    fn normpath(this, __a){
+        return __a.replace("/","\\");
+    }
+    fn join(this, basepath, *paths){
+        return "\\".join([basepath,*paths]);
+    }
+    fn split(this, path){
+        return this.normpath(path).split("\\");
+    }
+}
+
+
+from native reference sys;
+
+if sys.platform == "win32"{
+    path = _NtPath();
+}
+else{
+    path = os.path;
+}
+mkdir = path.mkdir;
+
+fn run(cmd){
+    path.cmd_popen(cmd);
+}

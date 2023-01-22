@@ -1,7 +1,0 @@
---2022-11-10 21:36:44--  https://raw.githubusercontent.com/JaneScriptLang/PyJNS/main/include/_os.jns
-CA-Zertifikat »/etc/ssl/certs/ca-certificates.crt« wurde geladen
-Auflösen des Hostnamens raw.githubusercontent.com (raw.githubusercontent.com)… 185.199.110.133, 185.199.111.133, 185.199.108.133, ...
-Verbindungsaufbau zu raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443 … verbunden.
-HTTP-Anforderung gesendet, auf Antwort wird gewartet … 404 Not Found
-2022-11-10 21:36:44 FEHLER 404: Not Found.
-

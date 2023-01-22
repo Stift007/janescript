@@ -1,0 +1,4 @@
+#include <stdlib>
+#include <process>
+
+printf("Hello, %!", (input("What's your Name? \n"),));

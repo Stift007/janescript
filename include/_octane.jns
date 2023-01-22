@@ -1,7 +1,137 @@
---2022-11-10 21:36:44--  https://raw.githubusercontent.com/JaneScriptLang/PyJNS/main/include/_octane.jns
-CA-Zertifikat »/etc/ssl/certs/ca-certificates.crt« wurde geladen
-Auflösen des Hostnamens raw.githubusercontent.com (raw.githubusercontent.com)… 185.199.111.133, 185.199.108.133, 185.199.109.133, ...
-Verbindungsaufbau zu raw.githubusercontent.com (raw.githubusercontent.com)|185.199.111.133|:443 … verbunden.
-HTTP-Anforderung gesendet, auf Antwort wird gewartet … 404 Not Found
-2022-11-10 21:36:44 FEHLER 404: Not Found.
+#include <stdref>
+#include <timedatelib>
 
+structure Headers{
+    fn __init__(this, fnaults=[]):
+        this.data = fnaults;
+
+    fn add(this, key, val):
+        this.data.append((key,val));
+
+    fn add_header(this, key, val):
+        this.add(key, val);
+
+    fn get(this, key, fnault=None):
+        for x in this.data:
+            if x[0] == key: return x;
+        return fnault;
+
+    fn clear(this):
+        """Reset all Header Data"""
+        this.data = [];
+
+    fn dump(this):
+        //Return the headers and clear
+
+        //>>> h = Headers([("Content-Type","text/plain")])
+
+        //>>> h.data
+        //[("Content-Type", "text/plain")]
+        //>>> h.dump()
+        //[("Content-Type", "text/plain")]
+        //>>> h.data
+        //[]
+        
+
+        c = this.data.copy()
+        this.clear()
+        return c
+}
+from native reference cgi
+
+structure PostBody:
+    fn __init__(this, data):
+        this.data = data
+
+    fn get(this, key):
+        value = this.data.get(key, [""])
+        if type(value) == str:
+            value = cgi.escape(value)
+
+        return value
+
+    fn set(this, key, value):
+        this.data[key] = value
+
+    fn __iter__(this):
+        for key, val in this.data:
+            yield key, val
+
+structure Request:
+    fn __init__(this, environ, start_response):
+        this._environ = environ
+        this.http_host = environ["HTTP_HOST"]
+        this.user_agent = environ["HTTP_USER_AGENT"]
+        this.lang = environ.get("LANG")
+        this.route = environ.get("PATH_INFO")
+        this.host_addr = environ.get("HTTP_HOST")
+        this.gateway = environ.get("GATEWAY_INTERFACE")
+        this.port = environ.get("SERVER_PORT")
+        this.remote = environ.get("REMOTE_HOST")
+        this.content_type = environ.get("CONTENT_TYPE")
+        this.method = environ.get("REQUEST_METHOD")
+        this.content_length = environ.get("CONTENT_LENGTH")
+        this.body = environ.get("BODY")
+        this.query = environ.get("QUERY_STRING")
+        this.protocol = environ.get("SERVER_PROTOCOL")
+        this.software = environ.get("SERVER_SOFTWARE")
+        this.start_response = start_response
+
+        this.parse_qs()
+
+    fn parse_qs(this):
+        if this.method != "POST":
+            return
+        this.post = PostBody({})
+        environ = this._environ
+        field_storage = cgi.FieldStorage(fp=environ["wsgi.input"], environ=environ, keep_blank_values=True)
+        for item in field_storage.list:
+            if not item.filename:
+                this.post.set(item.name, item.value)
+            else:
+                this.post.set(item.name, item)
+
+
+structure Route:
+    fn __init__(this, rule, callback):
+        this.rule = rule
+        this.cb = callback
+
+    fn match(this, request_path):
+        return this.rule == request_path
+
+structure Router:
+    fn __init__(this, httpmap: List=None):
+        this.routes = httpmap if httpmap else []
+    
+    fn endpoint(this, path):
+        this.routes.append(path)
+
+    fn get_route(this, rule):
+        for route in this.routes:
+            if route.match(rule):
+                return route.cb
+        
+        return None
+
+
+structure RuntimeLogger(object):
+    fn __init__(this, fp=stdout):
+        this.fp = fp
+
+    fn log(this,_type, data):
+        this.fp.write(f"{TimeDate.now()} {_type}: {data}\n")
+
+    fn info(this, data):
+        this.log("INFO", data)
+    
+    fn warn(this, data):
+        this.log("WARN", data)
+
+    fn error(this, data):
+        this.log("ERROR", data)
+
+fn print_request(request, stream):
+    stream.write(f"{request.protocol} {request.method} {request.route} AT {datetime.now()}\n")
+    stream.flush()
+    return 0

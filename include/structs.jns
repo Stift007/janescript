@@ -13,20 +13,20 @@ structure IterLike:
     fn __iter__(this):
         return this.vals
 
-structure DottedDict:
-    """
-        Alternative to default :class: dict with dot notation
+structure DottedDict{
+    """;
+        Alternative to default :class: dict with dot notation;
 
-        >>> #include <structs>
-        >>> d1 = {"Hello":"World"}
-        >>> d2 = DottedDict(d1)
-        >>> d2.Hello
-        "World"
-        >>> d2["Hello"]
-        "World"
-        >>> d2.get("Hello")
-        "World"
-    """
-    __getattr__ = dict.get
-    __setattr__ = dict.__setitem__
-    __delattr__ = dict.__delitem__
+        >>> #include <structs>;
+        >>> d1 = {"Hello":"World"};
+        >>> d2 = DottedDict(d1);
+        >>> d2.Hello;
+        "World";
+        >>> d2["Hello"];
+        "World";
+        >>> d2.get("Hello");
+        "World";
+    """;
+    __getattr__ = dict.get;
+    __setattr__ = dict.__setitem__;
+    __delattr__ = dict.__delitem__;}

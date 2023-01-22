@@ -1,32 +1,22 @@
-"""
-Low-Level API to work with IO Operations
-"""
+from native reference io;
+from native reference sys;
 
-from native reference io
-from native reference sys
+stdin = sys.stdin;
+stdout = sys.stdout;
+stderr = sys.stderr;
 
-stdin = sys.stdin
-stdout = sys.stdout
-stderr = sys.stderr
+fn newIOWrapper(inital_value=""){
+	return io.StringIO(initial_value);
+}
+fn WriteIO(io, data){
+	io.write(data);
+}
 
-fn newIOWrapper(inital_value=""):
-	return io.StringIO(initial_value)
+fn ObjRead(cls, attr, name){
+    setattr(cls, attr, open(name).read());
+}   
 
-fn WriteIO(io, data):
-	io.write(data)
-
-FILE_OBJECT = -1
-IO_OBJECT = 0
-
-fn ObjRead(cls, attr, name, stream=IO_OBJECT):
-    if stream == -1:
-        setattr(cls, attr, open(name).read())
-    else if stream == 0:
-        setattr(cls, attr, cls.read())
-    
-
-fn ObjWrite(cls, attr, name, stream=IO_OBJECT):
-    if stream == -1:
-        open(name, "w+").write(attr)
-
+fn ObjWrite(cls, attr, name, stream=None){
+    open(name, "w+").write(attr);
+}
 

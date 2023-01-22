@@ -1,0 +1,149 @@
+
+
+
+
+// Array Structs
+structure ArrayList{
+    fn __init__(this, *initial_values){
+        this.anchor = None;
+        for v=0 until len(initial_values) step 1{
+            this.append(initial_values[v]);
+        }
+    }
+
+    fn append(this, item){
+        _ = ListItem(item);
+        _._set_pointer(this.anchor);
+        this.anchor = _;
+    }
+
+    fn __add__(this, other){
+        this.extend(other);
+    }
+
+    fn extend(this, other){
+        for v=0 until len(other) step 1{
+            this.append(other[v]);
+        }
+    }
+    fn pop(this, index){
+        h = this.anchor;
+        current = 0;
+        while(h){
+            if(index<0){
+                if(current==len(this)-index){
+                    this.imat(len(this)-index-1)._set_pointer(this.imat(len(this)-index+1));
+                    return h.value;
+                }
+            } 
+            else{
+                if(current == index){
+                    this.imat(index-1)._set_pointer(this.imat(index+1));
+                    return h.value;
+                }
+            }
+            current += 1;
+            _ = h.pointer;
+            h = _;
+        }
+        else{
+            raise IndexError("Index out of Range");
+        }
+    }
+
+    fn __iter__(this){
+        h = this.anchor;
+        while(h){
+            yield h.value;
+            plc = h.pointer;
+            h = plc;
+        }
+    }
+
+    fn imat(this, index){
+        h = this.anchor;
+        current = 0;
+        while(h){
+            if(index < 0){
+                if (current == len(this)-index){
+                    return h;
+                }
+            }
+            else{
+                if (current == index){
+                    return h;
+                }
+            }
+            current += 1;
+            _ = h.pointer;
+            h = _;
+        }
+        else{
+            raise IndexError("Index out of Range");
+        }
+    }
+
+    fn __len__(this){
+        h = this.anchor;
+        current = 0;
+        while(h){
+            current += 1;
+            _ = h.pointer;
+            h = _;
+        }     
+        return current;
+    }
+
+    fn __getitem__(this, index){
+        h = this.anchor;
+        current = 0;
+        while(h){
+            if(index < 0){
+                if (current == len(this)-index){
+                    return h.value;
+                }
+            }
+            else{
+                if (current == index){
+                    return h.value;
+                }
+            }
+            current += 1;
+            _ = h.pointer;
+            h = _;
+        }
+        else{
+            raise IndexError("Index out of Range");
+        }
+    }
+
+
+}
+
+structure Stack(ArrayList){
+    fn pop(this){
+        return super().pop(0);
+    }
+    fn push(this, v){
+        this.append(v);
+    }
+    fn peek(this){
+        return this[0];
+    }
+    fn isEmpty(this){
+        return not this.anchor;
+    }
+}
+
+structure Element{
+    fn __init__(this, value){
+        this.value = value;
+        this.pointer = None;
+    }
+
+    fn _set_pointer(this, new_ptr: "Element"){
+        this.pointer = new_ptr;
+    }
+}
+
+
